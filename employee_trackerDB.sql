@@ -8,14 +8,14 @@ USE employee_trackerDB;
 
 CREATE TABLE department (
   id INT AUTO_INCREMENT,
-  name VARCHAR(30) NOT NULL,
+  deptName VARCHAR(30) NOT NULL,
   PRIMARY KEY (id)	
   );
 
 
 CREATE TABLE role (
 id INT AUTO_INCREMENT,
-title VARCHAR(30) NOT NULL,
+title VARCHAR(50) NOT NULL,
 salary DECIMAL NOT NULL,
 department_id INT NOT NULL,
 PRIMARY KEY (id)	
@@ -32,36 +32,38 @@ manager_id INT,
 PRIMARY KEY (id)	
 
   );
+-- --Dept table
+INSERT INTO department (deptName)
+VALUES ("Mechanic");
 
-INSERT INTO department (name)
-VALUES ("Devante");
+INSERT INTO department (deptName)
+VALUES ("Sales");
 
-INSERT INTO role (title, salary, department_id )-- department_id  is dept id the same as primaart key id?
-VALUES ("Tech Lead", 100000 , 1 );
-
-INSERT INTO employee (first_name, last_name, role_id )-- role_id  is role id the same as primaart key id?
-VALUES ("Devante", "Williams", 1);
-
-
-INSERT INTO department (name)
-VALUES ("Stan");
-
-INSERT INTO role (title, salary, department_id )-- department_id  is dept id the same as primaart key id?
-VALUES ("Software Engineer", 75000, 1 );
-
-INSERT INTO employee (first_name, last_name, role_id, manager_id )-- role_id  is role id the same as primaart key id?
-VALUES ("Stan", "Daman", 1, 1);
+INSERT INTO department (deptName)
+VALUES ("Customer Service");
 
 
+-- --role table
+INSERT INTO role (title, salary, department_id)
+VALUES ("Engine Technician", 80000 , 1);
 
-INSERT INTO department (name)
-VALUES ("Randy");
+INSERT INTO role (title, salary, department_id)
+VALUES ("Leads Devolpment", 70000, 2);
 
-INSERT INTO role (title, salary, department_id )-- department_id  is dept id the same as primaart key id?
-VALUES ("Sales", 90000, 2 );
+INSERT INTO role (title, salary, department_id)
+VALUES ("Customer Service Representative", 40000, 3);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id )-- role_id  is role id the same as primaart key id?
-VALUES ("Randy", "Land", 2, 1);
+-- --employee table
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id )
+VALUES ("Peter", "Griffin" , 1, 2 );
+
+INSERT INTO employee (first_name, last_name, role_id,  manager_id)
+VALUES ("Devante", "Williams" , 2, 2);   
+
+INSERT INTO employee (first_name, last_name, role_id,  manager_id)
+VALUES ("Brian", "Griffin" , 3, 2);  
+
 
 SELECT * FROM department;
 

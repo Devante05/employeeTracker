@@ -75,7 +75,7 @@ function addEmployee() {
     ])
     .then(function(answer) {
       connection.query(
-        "INSERT INTO employees SET ?",
+        "INSERT INTO employee SET ?",
         {
           first_name: answer.firstName,
           last_name: answer.lastName,
@@ -102,7 +102,8 @@ function delEmployee() {
           choices: function() {
             var employeeArray = [];
             for (var i = 0; i < results.length; i++) {
-              employeeArray.push(results[i].item_name);
+              employeeArray.push(results[i].first_name); //or should i push id 
+
             }
             return choiceArray;
           },
@@ -134,7 +135,7 @@ function delEmployee() {
             ],
             function(error) {
               if (error) throw err;
-              console.log("Bid placed successfully!");
+              console.log("Employee deleted sucessfully");
               start();
             }
           );
@@ -149,11 +150,11 @@ function delEmployee() {
 }
 
 
-function viewEmployees(){
-  connection.query("SELECT * FROM employees", function(err, results) {
-    if (err) throw err;
+// function viewEmployees(){
+//   connection.query("SELECT * FROM employees", function(err, results) {
+//     if (err) throw err;}
 
 
-    console.table(results)
+//     console.table(results)
 
   
