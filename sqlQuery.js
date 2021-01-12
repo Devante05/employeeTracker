@@ -10,6 +10,7 @@
 // SELECT * FROM employee;
 
 
-//
+//            "DELETE FROM employees WHERE ?",
+
 
 // 
