@@ -28,7 +28,7 @@ function start() {
       name: "task",
       type: "list",
       message: "What would you like to do today?",
-      choices: ["ADD EMPLOYEE", "DELETE EMPLOYEE", "VIEW ALL EMPLOYEES"],
+      choices: ["ADD EMPLOYEE","ADD DEPARTMENT", "DELETE EMPLOYEE", "VIEW ALL EMPLOYEES" , "VIEW ALL DEPARTMENTS", "VIEW ALL ROLES"],
     })
     .then(function (answer) {
       if (answer.task === "ADD EMPLOYEE") {
@@ -37,7 +37,20 @@ function start() {
         delEmployee();
       } else if (answer.task === "VIEW ALL EMPLOYEES") {
         viewEmployees();
-      } else {
+      } 
+        else if (answer.task === "ADD DEPARTMENT") {
+        addDepartment();
+      }
+      else if (answer.task === "VIEW ALL DEPARTMENTS") {
+        viewDepartments();
+        start();
+      }
+      else if (answer.task === "VIEW ALL ROLES") {
+        viewRoles();
+        start();
+
+      }
+        else {
         connection.end();
       }
     });
@@ -89,38 +102,48 @@ function addEmployee() {
   });
 }
 
-function delEmployee() {
-  connection.query("SELECT * FROM employee", function (err, results) {
-    if (err) throw err;
-    inquirer
-      .prompt([
-        {
-          name: "choice",
-          type: "rawlist",
-          choices: function () {
-            var employeeArray = [];
-            for (var i = 0; i < results.length; i++) {
-              employeeArray.push(results[i].first_name); //or should i push id .. should i use filter method or should i delete by finding the index of emloyee
-            }
-            return employeeArray;
-          },
-          message: "which employee would you like to remove?",
-        },
-      ])
-      .then(function (answer) {
-        // get the information of the chosen item
-        var chosenItem;
-        for (var i = 0; i < results.length; i++) {
-          if (results[i].item_name === answer.choice) {
-            chosenItem = results[i];
+
+function addDepartment() {
+    connection.query( function (err) {
+      if (err) throw err;
+      inquirer
+        .prompt([
+          {
+            name: "name",
+            type: "input",
+            message: "What is the name of the department?",
           }
-        }
-      });
+        ])
+        .then(function (answer) {
+          console.log(answer);
+          connection.query("INSERT INTO department ?", answer, function (err) {
+            if (err) throw err;
+            console.log("Your department was successfully added to the database.");
+            start();
+          });
+        });
   });
 }
 
 function viewEmployees() {
   connection.query("SELECT * FROM employee", function (err, results) {
+    if (err) throw err;
+
+    console.table(results);
+  });
+}
+
+function viewDepartments() {
+  connection.query("SELECT * FROM department", function (err, results) {
+    if (err) throw err;
+
+    console.table(results);
+  });
+}
+
+
+function viewRoles() {
+  connection.query("SELECT * FROM role", function (err, results) {
     if (err) throw err;
 
     console.table(results);
