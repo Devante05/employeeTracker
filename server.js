@@ -37,18 +37,20 @@ function start() {
         delEmployee();
       } else if (answer.task === "VIEW ALL EMPLOYEES") {
         viewEmployees();
-      } 
-        else if (answer.task === "ADD DEPARTMENT") {
+      } else if (answer.task === "ADD DEPARTMENT") {
         addDepartment();
-      }
-      else if (answer.task === "VIEW ALL DEPARTMENTS") {
+      } else if (answer.task === "DELETE DEPARTMENT") {
+        delDepartment();
+      } else if (answer.task === "VIEW ALL DEPARTMENTS") {
         viewDepartments();
         start();
-      }
-      else if (answer.task === "VIEW ALL ROLES") {
+      } else if (answer.task === "ADD ROLE") {
+        addRole();
+      } else if (answer.task === "DELETE ROLE") {
+        delRole();
+      } else if (answer.task === "VIEW ALL ROLES") {
         viewRoles();
         start();
-
       }
         else {
         connection.end();
@@ -124,6 +126,73 @@ function addDepartment() {
         });
   });
 }
+
+function addRole() {
+  connection.query( function (err) {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          name: "name",
+          type: "input",
+          message: "What is the name of the role?",
+        }
+      ])
+      .then(function (answer) {
+        console.log(answer);
+        connection.query("INSERT INTO role ?", answer, function (err) {
+          if (err) throw err;
+          console.log("Your role was successfully added to the database.");
+          start();
+        });
+      });
+});
+}
+
+function delDepartment() {
+  connection.query( function (err) {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          name: "name",
+          type: "input",
+          message: "What is the name of the department?",
+        }
+      ])
+      .then(function (answer) {
+        console.log(answer);
+        connection.query("DELETE FROM department ?", answer, function (err) {
+          if (err) throw err;
+          console.log("Your department was successfully deleted from the database.");
+          start();
+        });
+      });
+});
+}
+
+function delEmployee() {
+  connection.query( function (err) {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          name: "name",
+          type: "input",
+          message: "What is the name of the employee you would like to delete?",
+        }
+      ])
+      .then(function (answer) {
+        console.log(answer);
+        connection.query("DELETE FROM employee ?", answer, function (err) {
+          if (err) throw err;
+          console.log("Your department was successfully deleted from the database.");
+          start();
+        });
+      });
+});
+}
+
 
 function viewEmployees() {
   connection.query("SELECT * FROM employee", function (err, results) {
