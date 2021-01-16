@@ -28,7 +28,7 @@ function start() {
       name: "task",
       type: "list",
       message: "What would you like to do today?",
-      choices: ["ADD EMPLOYEE","ADD DEPARTMENT", "DELETE EMPLOYEE", "VIEW ALL EMPLOYEES" , "VIEW ALL DEPARTMENTS", "VIEW ALL ROLES"],
+      choices: ["ADD EMPLOYEE","ADD DEPARTMENT","ADD ROLE" , "DELETE EMPLOYEE","DELETE DEPARTMENT","DELETE ROLE" ,"VIEW ALL EMPLOYEES" , "VIEW ALL DEPARTMENTS", "VIEW ALL ROLES"],
     })
     .then(function (answer) {
       if (answer.task === "ADD EMPLOYEE") {
